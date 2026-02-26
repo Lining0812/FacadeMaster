@@ -23,7 +23,15 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <Compile Include="C:\Users\Administrator\source\repos\FacadeMaster\FacadeMaster.RH\AddCommand.cs" Link="AddCommand.cs" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <PackageReference Include="RhinoCommon" Version="8.0.23304.9001" ExcludeAssets="runtime" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\FacadeMaster.Core\FacadeMaster.Core.csproj" />
   </ItemGroup>
   
   <!-- For Windows only builds -->

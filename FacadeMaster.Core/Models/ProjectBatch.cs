@@ -3,10 +3,19 @@
     /// <summary>
     /// 项目批次
     /// </summary>
-    public class ProjectBatch
+    public class ProjectBatch : BaseEntity
     {
-        public string WBS { get; set; }
-        public string ProcessNum { get; set; }
+        /// <summary>
+        /// 批次名称
+        /// </summary>
         public string Title { get; set; }
+        /// <summary>
+        /// WBS元素号
+        /// </summary>
+        public string WBS { get; set; }
+        /// <summary>
+        /// 工序号
+        /// </summary>
+        public string ProcessNum { get; set; }
     }
 }

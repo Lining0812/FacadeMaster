@@ -1,4 +1,5 @@
-﻿using FacadeMaster.Core.Models;
+using FacadeMaster.Core.Models;
+using FacadeMaster.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,42 +15,83 @@ namespace FacadeMaster.Core.Repos
         /// <summary>
         /// 数据存储集合
         /// </summary>
-        protected virtual ICollection<T> Entities { get; set; } = new List<T>();
+        private readonly ICollection<T> _entities = new List<T>();
+        /// <summary>
+        /// 文件路径
+        /// </summary>
+        protected abstract string FilePath { get; }
+
+        protected BaseRepo()
+        {
+            LoadFromFile();
+        }
 
         public virtual void Add(T entity)
         {
             if(entity == null) throw new ArgumentNullException(nameof(entity));
-            Entities.Add(entity);
+            _entities.Add(entity);
             SaveChanges();
         }
 
         public virtual void Delete(T entity)
         {
             if (entity == null) throw new ArgumentNullException(nameof(entity));
-            Entities.Remove(entity);
+            _entities.Remove(entity);
             SaveChanges();
         }
 
         public virtual void Update(T entity)
         {
             if (entity == null) throw new ArgumentNullException(nameof(entity));
+
             var existing = GetById(entity.Id);
             if (existing == null)
             {
                 throw new InvalidOperationException($"未找到 ID 为 {entity.Id} 的实体");
             }
+
+            _entities.Remove(existing);
+            _entities.Add(entity);
+
+            SaveChanges();
         }
 
         public virtual ICollection<T> GetAll()
         {
-            return Entities.ToList();
+            return _entities.ToList();
         }
 
         public virtual T GetById(Guid id)
         {
-            return Entities.FirstOrDefault(e => e.Id == id);
+            return _entities.FirstOrDefault(e => e.Id == id);
         }
 
-        public abstract void SaveChanges();
+        void IRepository<T>.LoadFromFile()
+        {
+            LoadFromFile();
+        }
+
+        protected virtual void LoadFromFile()
+        {
+            if (string.IsNullOrEmpty(FilePath))
+                throw new InvalidOperationException($"{nameof(FilePath)} 未配置");
+            if (JsonHelper.TryDeserializeFromFile(FilePath, out ICollection<T> loaded))
+            {
+                foreach (var entity in loaded.Where(e => e != null))
+                {
+                    _entities.Add(entity);
+                }
+            }
+        }
+
+        void IRepository<T>.SaveChanges()
+        {
+            SaveChanges();
+        }
+
+        protected void SaveChanges()
+        {
+            JsonHelper.SerializeToFile(_entities, FilePath);
+        }
     }
 }

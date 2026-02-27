@@ -1,4 +1,6 @@
-﻿using FacadeMaster.Core.Models;
+﻿using FacadeMaster.Core.DTOs;
+using FacadeMaster.Core.Models;
+using System;
 
 namespace FacadeMaster.Core.Repos
 {

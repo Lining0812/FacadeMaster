@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 namespace FacadeMaster.Core.Models
 {
@@ -9,6 +8,7 @@ namespace FacadeMaster.Core.Models
         public DateTime CreateAt { get; set; }
         public DateTime DeleteAt { get; set; }
         public DateTime UpdateAt { get; set; }
+        public bool IsDelete { get; set; }
 
         protected BaseEntity()
         {
@@ -17,6 +17,7 @@ namespace FacadeMaster.Core.Models
             CreateAt = now;
             DeleteAt = DateTime.MinValue;
             UpdateAt = now;
+            IsDelete = false;
         }
     }
 }

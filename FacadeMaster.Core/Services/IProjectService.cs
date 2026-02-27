@@ -1,13 +1,13 @@
-﻿using System;
+﻿using FacadeMaster.Core.DTOs;
+using FacadeMaster.Core.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FacadeMaster.Core.Services
 {
     public interface IProjectService
     {
-        void CreateProject(string name, string num);
+        EngProject CreateProject(CreateProjectRequest dto);
+
+        ICollection<ProjectBatch> GetBatchesByProject(EngProject p);
     }
 }

@@ -1,10 +1,8 @@
-﻿using FacadeMaster.Core.Models;
+﻿using FacadeMaster.Core.DTOs;
+using FacadeMaster.Core.Mappers;
+using FacadeMaster.Core.Models;
 using FacadeMaster.Core.Repos;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FacadeMaster.Core.Services
 {
@@ -17,15 +15,18 @@ namespace FacadeMaster.Core.Services
             _projectRepo = projectRepo;
         }
 
-        public void CreateProject(string name,string num)
+        public EngProject CreateProject(CreateProjectRequest dto)
         {
-            EngProject project = new EngProject
-            {
-                Name = name,
-                Num = num
-            };
+            var project = ProjectMapper.ToEntity(dto);
 
             _projectRepo.Add(project);
+
+            return project;
+        }
+
+        public ICollection<ProjectBatch> GetBatchesByProject(EngProject p)
+        {
+            return p.ProjectBatchs;
         }
     }
 }

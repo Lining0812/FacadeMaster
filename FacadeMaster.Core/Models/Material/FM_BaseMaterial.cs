@@ -1,10 +1,9 @@
-﻿
-namespace FacadeMaster.Core.Models.Material
+﻿namespace FacadeMaster.Core.Models.Material
 {
     /// <summary>
     /// 物料
     /// </summary>
-    public class Material
+    public class FM_BaseMaterial : BaseEntity
     {
         /// <summary>
         /// 物料名称
@@ -17,6 +16,6 @@ namespace FacadeMaster.Core.Models.Material
         /// <summary>
         /// 工程属性编码
         /// </summary>
-        public string EA_Code { get; set; }
+        public string M_EACode { get; set; }
     }
 }

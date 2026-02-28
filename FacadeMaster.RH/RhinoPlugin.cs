@@ -1,5 +1,12 @@
 ﻿using System;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
+using System.Windows.Controls;
+using FacadeMaster.RH.FM_Panels;
 using Rhino;
+using Rhino.PlugIns;
+using Rhino.UI;
 
 namespace FacadeMaster.RH
 {
@@ -24,5 +31,14 @@ namespace FacadeMaster.RH
         // You can override methods here to change the plug-in behavior on
         // loading and shut down, add options pages to the Rhino _Option command
         // and maintain plug-in wide options in a document.
+        protected override LoadReturnCode OnLoad(ref string errorMessage)
+        {
+            // 注册面板
+            string pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string iconPath = Path.Combine(pluginDir, "EmbeddedResources", "plugin-utility.ico");
+            Icon icon = new Icon(iconPath);
+            Panels.RegisterPanel(this,typeof(FM_Panel), "FacadeMaster面板", icon);
+            return base.OnLoad(ref errorMessage);
+        }
     }
 }

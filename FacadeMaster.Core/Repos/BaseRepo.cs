@@ -15,7 +15,7 @@ namespace FacadeMaster.Core.Repos
         /// <summary>
         /// 数据存储集合
         /// </summary>
-        private readonly ICollection<T> _entities = new List<T>();
+        private readonly List<T> _entities = new List<T>();
         /// <summary>
         /// 文件路径
         /// </summary>
@@ -28,7 +28,7 @@ namespace FacadeMaster.Core.Repos
 
         public virtual void Add(T entity)
         {
-            if(entity == null) throw new ArgumentNullException(nameof(entity));
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
             _entities.Add(entity);
             SaveChanges();
         }
@@ -50,8 +50,8 @@ namespace FacadeMaster.Core.Repos
                 throw new InvalidOperationException($"未找到 ID 为 {entity.Id} 的实体");
             }
 
-            _entities.Remove(existing);
-            _entities.Add(entity);
+            CopyProperties(entity, existing);
+            UpdateAuditFields(existing);
 
             SaveChanges();
         }
@@ -92,6 +92,27 @@ namespace FacadeMaster.Core.Repos
         protected void SaveChanges()
         {
             JsonHelper.SerializeToFile(_entities, FilePath);
+        }
+
+        protected virtual void CopyProperties(T source, T target)
+        {
+            var properties = typeof(T).GetProperties()
+                .Where(p => p.CanWrite && p.Name != nameof(BaseEntity.Id));
+
+            foreach (var property in properties)
+            {
+                var value = property.GetValue(source);
+                property.SetValue(target, value);
+            }
+        }
+        protected virtual void UpdateAuditFields(T entity)
+        {
+            // 如果实体有 UpdatedAt 属性，自动更新
+            var updatedAtProp = typeof(T).GetProperty("UpdatedAt");
+            if (updatedAtProp != null && updatedAtProp.CanWrite)
+            {
+                updatedAtProp.SetValue(entity, DateTime.UtcNow);
+            }
         }
     }
 }

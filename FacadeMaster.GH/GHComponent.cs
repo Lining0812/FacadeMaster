@@ -48,11 +48,11 @@ namespace FacadeMaster.GH
         {
             EngProject project = new EngProject
             {
-                Name = "上海张江2B-6",
+                Name = "锟较猴拷锟脚斤拷2B-6",
                 Num = "xxx-xxx-xx-xxx",
             };
 
-            string str = $"项目名称：{project.Name},项目编码{project.Num}";
+            string str = $"锟斤拷目锟斤拷锟狡ｏ拷{project.Name},锟斤拷目锟斤拷锟斤拷{project.Num}";
 
             DA.SetData(0, str);
         }

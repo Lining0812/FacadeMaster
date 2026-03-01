@@ -1,4 +1,4 @@
-﻿using FacadeMaster.Core.DTOs;
+using FacadeMaster.Core.DTOs;
 using FacadeMaster.Core.Repos;
 using FacadeMaster.Core.Services;
 using Rhino;

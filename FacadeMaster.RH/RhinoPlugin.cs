@@ -33,6 +33,7 @@ namespace FacadeMaster.RH
         // and maintain plug-in wide options in a document.
         protected override LoadReturnCode OnLoad(ref string errorMessage)
         {
+
             // 注册插件面板
             string pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string iconPath = Path.Combine(pluginDir, "EmbeddedResources", "plugin-utility.ico");

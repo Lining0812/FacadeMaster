@@ -1,23 +1,24 @@
+using FacadeMaster.Shared;
 using Rhino;
 using Rhino.Commands;
 using Rhino.DocObjects;
 using Rhino.Input.Custom;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FacadeMaster.RH
 {
-    public class TestCommand : Command
+    public class FmRead : Command
     {
-        public TestCommand()
-        {
-            Instance = this;
-        }
-        public static TestCommand Instance { get; private set; }
-        public override string EnglishName => "FM_Test";
+        public override string EnglishName => "FM_Read";
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             RhinoObject rhobj = null;
-            using(GetObject getObj = new GetObject())
+            using (GetObject getObj = new GetObject())
             {
                 getObj.SetCommandPrompt("选择对象");
 
@@ -29,7 +30,9 @@ namespace FacadeMaster.RH
                     rhobj = obj.Object();
                     if (rhobj != null)
                     {
-                        rhobj.Attributes.SetUserString("aaa", "111");
+                        CustomUserData data = (CustomUserData)rhobj.Attributes.UserData.Find(typeof(CustomUserData));
+                        RhinoApp.WriteLine($"自定义数据：{data.Test}");
+                        RhinoApp.WriteLine($"变换次数：{data.Count}");
                     }
                 }
             }

@@ -1,9 +1,9 @@
-﻿using Rhino.DocObjects.Custom;
+﻿using Rhino.Collections;
+using Rhino.DocObjects.Custom;
 using Rhino.FileIO;
 using Rhino.Geometry;
 using System;
 using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
 
 namespace FacadeMaster.Shared
 {
@@ -58,12 +58,16 @@ namespace FacadeMaster.Shared
 
         protected override bool Write(BinaryArchiveWriter archive)
         {
-            return base.Write(archive);
+            archive.WriteString(Test);
+            archive.WriteInt(Count);
+            return true;
         }
 
         protected override bool Read(BinaryArchiveReader archive)
         {
-            return base.Read(archive);
+            Test = archive.ReadString();
+            Count = archive.ReadInt();
+            return true;
         }
     }
 }

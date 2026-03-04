@@ -3,7 +3,7 @@
     /// <summary>
     /// 铝板物料
     /// </summary>
-    public class FM_AluPlate : BaseEntity
+    public class FM_AluPlate : FM_BaseMaterial
     {
         /// <summary>
         /// 铝板厚度

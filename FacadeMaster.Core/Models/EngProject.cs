@@ -11,12 +11,12 @@ namespace FacadeMaster.Core.Models
         /// <summary>
         /// 工程名称
         /// </summary>
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
 
         /// <summary>
         /// 工程编号
         /// </summary>
-        public string Num { get; set; } = string.Empty;
+        public string Num { get; set; }
 
         /// <summary>
         /// 项目批次

@@ -39,36 +39,5 @@ namespace FacadeMaster.RH
             }
             return Result.Success;
         }
-
-        //protected override Result RunCommand(RhinoDoc doc, RunMode mode)
-        //{
-        //    using (GetObject getObj = new GetObject())
-        //    {
-        //        getObj.SetCommandPrompt("选择对象");
-
-        //        getObj.GeometryFilter = ObjectType.AnyObject;
-        //        getObj.GetMultiple(1, 0);
-
-        //        foreach (var obj in getObj.Objects())
-        //        {
-        //            var rhobj = obj.Object();
-        //            CustomUserData data = new CustomUserData();
-
-        //            if (rhobj == null) continue;
-        //            RhinoApp.WriteLine($"对象 ID: {rhobj.Id}, 类型: {rhobj.ObjectType}");
-
-        //            try
-        //            {
-        //                rhobj.Attributes.UserData.Add(data);
-        //                RhinoApp.WriteLine("添加成功");
-        //            }
-        //            catch(Exception ex)
-        //            {
-        //                RhinoApp.WriteLine($"添加失败: {ex.Message}");
-        //            }
-        //        }
-        //    }
-        //    return Result.Success;
-        //}
     }
 }

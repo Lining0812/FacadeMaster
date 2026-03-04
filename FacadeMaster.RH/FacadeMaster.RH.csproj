@@ -39,7 +39,6 @@
   
   <ItemGroup>
     <ProjectReference Include="..\FacadeMaster.Core\FacadeMaster.Core.csproj" />
-    <ProjectReference Include="..\FacadeMaster.Shared\FacadeMaster.Shared.csproj" />
   </ItemGroup>
   
   <!-- For Windows only builds -->

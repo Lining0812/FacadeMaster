@@ -2,6 +2,7 @@ using FacadeMaster.Core.DTOs;
 using FacadeMaster.Core.Repos;
 using FacadeMaster.Core.Services;
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Attributes;
 using System;
 using System.Collections.Generic;
 
@@ -36,9 +37,9 @@ namespace FacadeMaster.GH
             var title = "";
             var code = "";
 
-            if (!DA.GetData(0, ref title) || DA.GetData(1, ref code)) return;
+            if (!DA.GetData(0, ref title) || !DA.GetData(1, ref code)) return;
 
-            var dto = new CreateProjectRequest(title, code, new List<CreateBatchRequest>());
+            var dto = new CreateProjectRequest(title, code);
 
             ProjectService service = new ProjectService(new ProjectRepository());
 
@@ -51,6 +52,15 @@ namespace FacadeMaster.GH
             }
             DA.SetData(0,true); 
             DA.SetData(1, project.Name);
+
+            this.Attributes
+        }
+    }
+
+    public class GHAttributes : GH_ComponentAttributes
+    {
+        public GHAttributes(GH_Component owner) : base(owner)
+        {
         }
     }
 }

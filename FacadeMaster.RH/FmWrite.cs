@@ -1,4 +1,3 @@
-using FacadeMaster.Shared;
 using Rhino;
 using Rhino.Commands;
 using Rhino.DocObjects;

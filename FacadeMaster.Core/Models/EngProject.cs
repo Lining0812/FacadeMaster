@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FacadeMaster.Core.Models.Material;
+using System;
 using System.Collections.Generic;
 
 namespace FacadeMaster.Core.Models
@@ -22,5 +23,10 @@ namespace FacadeMaster.Core.Models
         /// 项目批次
         /// </summary>
         public ICollection<ProjectBatch> ProjectBatchs { get; set; } = new List<ProjectBatch>();
+
+        /// <summary>
+        /// 项目物料
+        /// </summary>
+        public ICollection<FM_BaseMaterial> Materials { get; set; } = new List<FM_BaseMaterial>();
     }
 }

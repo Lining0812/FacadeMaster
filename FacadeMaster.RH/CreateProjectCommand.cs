@@ -60,7 +60,7 @@ namespace FacadeMaster.RH
                 }
             }
 
-            CreateProjectRequest request = new CreateProjectRequest(p_name, p_num, batches);
+            CreateProjectRequest request = new CreateProjectRequest(p_name, p_num);
 
             var service = new ProjectService(new ProjectRepository());
             var project = service.CreateProject(request);

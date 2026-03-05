@@ -5,7 +5,7 @@ using Rhino.Geometry;
 using System;
 using System.Runtime.InteropServices;
 
-namespace FacadeMaster.Shared
+namespace FacadeMaster.RH
 {
     [Guid("3B625D28-D988-4B0C-BE5B-6A416B4298E6")]
     public class CustomUserData : UserData

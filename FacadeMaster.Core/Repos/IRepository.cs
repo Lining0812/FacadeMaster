@@ -36,10 +36,17 @@ namespace FacadeMaster.Core.Repos
         T GetById(Guid id);
 
         /// <summary>
+        /// 实体是否存在
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        bool Exists(Guid id);
+
+        /// <summary>
         /// 获取所有实体
         /// </summary>
         /// <returns></returns>
-        ICollection<T> GetAll();
+        ICollection <T> GetAll();
 
         /// <summary>
         /// 从文件读取数据

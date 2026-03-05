@@ -66,6 +66,11 @@ namespace FacadeMaster.Core.Repos
             return _entities.FirstOrDefault(e => e.Id == id);
         }
 
+        public virtual bool Exists(Guid id)
+        {
+            return _entities.Any(e => e.Id == id);
+        }
+
         void IRepository<T>.LoadFromFile()
         {
             LoadFromFile();

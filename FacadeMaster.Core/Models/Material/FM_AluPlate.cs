@@ -10,5 +10,9 @@
         /// </summary>
         public double Thickness { get; set; }
 
+        /// <summary>
+        /// 铝板色号
+        /// </summary>
+        public string Color { get; set; }
     }
 }

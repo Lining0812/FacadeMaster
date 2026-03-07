@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacadeMaster.Core", "Facade
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacadeMaster.RH", "FacadeMaster.RH\FacadeMaster.RH.csproj", "{071FC248-23D6-58FB-5729-6930976BAAB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacadeMaster.UI", "FacadeMaster.UI\FacadeMaster.UI.csproj", "{BE2C5B6F-D9A6-416B-856B-2BCB810CBEE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{071FC248-23D6-58FB-5729-6930976BAAB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{071FC248-23D6-58FB-5729-6930976BAAB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{071FC248-23D6-58FB-5729-6930976BAAB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE2C5B6F-D9A6-416B-856B-2BCB810CBEE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE2C5B6F-D9A6-416B-856B-2BCB810CBEE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE2C5B6F-D9A6-416B-856B-2BCB810CBEE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE2C5B6F-D9A6-416B-856B-2BCB810CBEE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

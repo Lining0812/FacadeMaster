@@ -53,5 +53,10 @@ namespace FacadeMaster.Core.Services
             project.Materials.Add(material);
             _projectRepo.Update(project);
         }
+
+        public EngProject GetById(Guid projectid)
+        {
+             return _projectRepo.GetById(projectid);
+        }
     }
 }

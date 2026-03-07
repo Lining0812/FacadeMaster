@@ -52,8 +52,6 @@ namespace FacadeMaster.GH
             }
             DA.SetData(0,true); 
             DA.SetData(1, project.Name);
-
-            this.Attributes
         }
     }
 

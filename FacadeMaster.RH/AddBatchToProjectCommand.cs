@@ -30,7 +30,6 @@ namespace FacadeMaster.RH
             var service = new ProjectService(new ProjectRepository());
             var dto = new CreateBatchRequest("z", "z", "z");
 
-
             Guid.TryParse(id, out Guid gid);
             service.AddBatchToProject(gid, dto);
 

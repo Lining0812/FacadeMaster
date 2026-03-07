@@ -1,5 +1,6 @@
 ﻿using FacadeMaster.Core.DTOs;
 using FacadeMaster.Core.Models;
+using FacadeMaster.Core.Models.Material;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace FacadeMaster.Core.Services
         /// 创建工程项目
         /// </summary>
         /// <param name="dto"></param>
-        /// <returns></returns>
+        /// <returns>EngProject</returns>
         EngProject CreateProject(CreateProjectRequest dto);
 
         /// <summary>
@@ -28,5 +29,19 @@ namespace FacadeMaster.Core.Services
         /// <param name="p"></param>
         /// <returns></returns>
         ICollection<ProjectBatch> GetBatchesByProject(EngProject p);
+
+        /// <summary>
+        /// 添加物料至工程项目
+        /// </summary>
+        /// <param name="projectid"></param>
+        /// <param name="material"></param>
+        void AddMaterialToProject(Guid projectid, FM_BaseMaterial material);
+
+        /// <summary>
+        /// 获取项目实例
+        /// </summary>
+        /// <param name="projectid"></param>
+        /// <returns></returns>
+        EngProject GetById(Guid projectid);
     }
 }

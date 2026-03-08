@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FacadeMaster.Core\FacadeMaster.Core.csproj" />
+    <ProjectReference Include="..\FacadeMaster.RH\FacadeMaster.RH.csproj" />
   </ItemGroup>
 
 </Project>

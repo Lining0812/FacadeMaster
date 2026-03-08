@@ -43,5 +43,7 @@ namespace FacadeMaster.Core.Services
         /// <param name="projectid"></param>
         /// <returns></returns>
         EngProject GetById(Guid projectid);
+
+        IEnumerable<EngProject> GetAllProjects();
     }
 }

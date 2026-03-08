@@ -58,5 +58,10 @@ namespace FacadeMaster.Core.Services
         {
              return _projectRepo.GetById(projectid);
         }
+
+        public IEnumerable<EngProject> GetAllProjects()
+        {
+            return _projectRepo.GetAll();
+        }
     }
 }

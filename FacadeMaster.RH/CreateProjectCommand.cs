@@ -1,5 +1,4 @@
 using FacadeMaster.Core.DTOs;
-using FacadeMaster.Core.Repos;
 using FacadeMaster.Core.Services;
 using Rhino;
 using Rhino.Commands;
@@ -26,7 +25,6 @@ namespace FacadeMaster.RH
             string p_name = "";
             string p_num = "";
             List<CreateBatchRequest> batches = new List<CreateBatchRequest>();
-
 
             using (GetString getStr = new GetString())
             {
@@ -62,7 +60,7 @@ namespace FacadeMaster.RH
 
             CreateProjectRequest request = new CreateProjectRequest(p_name, p_num);
 
-            var service = new ProjectService(new ProjectRepository());
+            var service = RhinoPlugin.Instance.GetService<IProjectService>();
             var project = service.CreateProject(request);
 
             RhinoApp.WriteLine($"Name:{project.Name},Number:{project.Num}");

@@ -1,6 +1,6 @@
 ﻿using FacadeMaster.Core.DTOs;
-using FacadeMaster.Core.Repos;
 using FacadeMaster.Core.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Rhino;
 using Rhino.Commands;
 using Rhino.Input.Custom;
@@ -27,12 +27,11 @@ namespace FacadeMaster.RH
                 id = getStr.StringResult();
             }
 
-            var service = new ProjectService(new ProjectRepository());
+            var service = RhinoPlugin.Instance.ServiceProvider.GetService<IProjectService>();
             var dto = new CreateBatchRequest("z", "z", "z");
 
-            Guid.TryParse(id, out Guid gid);
+            if(Guid.TryParse(id, out Guid gid))
             service.AddBatchToProject(gid, dto);
-
             RhinoApp.WriteLine("增加批次成功");
             return Result.Success;
         }

@@ -1,3 +1,4 @@
+using FacadeMaster.RH.FM_UserData;
 using Rhino;
 using Rhino.Commands;
 using Rhino.DocObjects;
@@ -25,10 +26,10 @@ namespace FacadeMaster.RH
             var rhobj = objref.Object();
             if (rhobj == null) return Result.Failure;
 
-            var ud = rhobj.Attributes.UserData.Find(typeof(CustomUserData)) as CustomUserData;
+            var ud = rhobj.Attributes.UserData.Find(typeof(JGJData)) as JGJData;
             if(ud == null)
             {
-                ud = new CustomUserData();
+                ud = new JGJData();
                 rhobj.Attributes.UserData.Add(ud);
                 rhobj.CommitChanges();
             }

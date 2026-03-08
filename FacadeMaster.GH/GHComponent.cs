@@ -1,10 +1,12 @@
 using FacadeMaster.Core.DTOs;
 using FacadeMaster.Core.Repos;
 using FacadeMaster.Core.Services;
+using FacadeMaster.RH;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FacadeMaster.GH
 {
@@ -22,43 +24,25 @@ namespace FacadeMaster.GH
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("i", "i", "i", GH_ParamAccess.item);
-            pManager.AddTextParameter("c", "c", "c", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("b", "b", "b", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddBooleanParameter("b", "b", "b", GH_ParamAccess.item);
-            pManager.AddTextParameter("i", "i", "i", GH_ParamAccess.item);
+            pManager.AddTextParameter("p", "p", "p", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            var title = "";
-            var code = "";
+            bool run = false;
 
-            if (!DA.GetData(0, ref title) || !DA.GetData(1, ref code)) return;
+            if (!DA.GetData(0, ref run)) return;
 
-            var dto = new CreateProjectRequest(title, code);
+            if (!run) return;
+            var projects = RhinoPlugin.Instance.GetService<IProjectService>().GetAllProjects();
 
-            ProjectService service = new ProjectService(new ProjectRepository());
-
-            var project = service.CreateProject(dto);
-
-            if (project == null)
-            {
-                DA.SetData(0, false);
-                DA.SetData(1, "添加失败");
-            }
-            DA.SetData(0,true); 
-            DA.SetData(1, project.Name);
+            DA.SetDataList(0, projects.Select(p => $"{p.Name} - {p.Num}"));
         }
     }
 
-    public class GHAttributes : GH_ComponentAttributes
-    {
-        public GHAttributes(GH_Component owner) : base(owner)
-        {
-        }
-    }
 }

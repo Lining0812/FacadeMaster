@@ -1,8 +1,9 @@
-﻿using Eto.Drawing;
+using Eto.Drawing;
 using Eto.Forms;
+using FacadeMaster.Core.Models;
+using FacadeMaster.Core.Services;
 using Rhino;
 using Rhino.DocObjects;
-using Rhino.UI;
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -16,16 +17,29 @@ namespace FacadeMaster.RH.FM_Panels
         private Label _label;
         public FM_Panel()
         {
-            _label = new Label
-            {
-                Text = "This is a test panel.",
-                Font = new Eto.Drawing.Font(SystemFont.Default, 20),
-                TextColor = Colors.White,
-                TextAlignment = TextAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-            };
+            var button = new Button { Text = "点击我" };
 
-            Content = _label;
+            var gridview = new GridView();
+            gridview.Columns.Add(new GridColumn
+            {
+                HeaderText = "工程名称",
+                DataCell = new TextBoxCell(nameof(EngProject.Name)),
+                HeaderTextAlignment = TextAlignment.Center,
+            });
+            gridview.Columns.Add(new GridColumn
+            {
+                HeaderText = "工程编号",
+                DataCell = new TextBoxCell(nameof(EngProject.Num)),
+                HeaderTextAlignment = TextAlignment.Center,
+            });
+            gridview.DataStore = RhinoPlugin.Instance.GetService<IProjectService>().GetAllProjects();
+
+            var layout = new DynamicLayout();
+            layout.Spacing = new Size(5, 5);
+            layout.AddRow(button);
+            layout.AddRow(gridview);
+
+            Content = layout;
 
             RhinoDoc.SelectObjects += OnSelectionChanged;
             RhinoDoc.DeselectObjects += OnDeselectObjects;

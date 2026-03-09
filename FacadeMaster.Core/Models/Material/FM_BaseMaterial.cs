@@ -5,8 +5,11 @@ namespace FacadeMaster.Core.Models.Material
     /// <summary>
     /// 物料
     /// </summary>
-    public class FM_BaseMaterial : BaseEntity
+    public abstract class FM_BaseMaterial : BaseEntity
     {
+       /// <summary>
+       /// 物料类型
+       /// </summary>
         public MaterialType M_Type { get; set; } = MaterialType.None;
         /// <summary>
         /// 物料名称

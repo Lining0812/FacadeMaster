@@ -1,8 +1,11 @@
 ﻿namespace FacadeMaster.Core.Enums
 {
+    /// <summary>
+    /// 物料类型
+    /// </summary>
     public enum MaterialType
     {
-        None = 0,
+        None,
         Glass,
         Aluminumsheet,
         AluminiumProfile,

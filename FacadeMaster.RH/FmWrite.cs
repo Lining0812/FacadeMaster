@@ -3,8 +3,6 @@ using Rhino;
 using Rhino.Commands;
 using Rhino.DocObjects;
 using Rhino.Input;
-using Rhino.Input.Custom;
-using System;
 
 namespace FacadeMaster.RH
 {
@@ -29,8 +27,8 @@ namespace FacadeMaster.RH
             var ud = rhobj.Attributes.UserData.Find(typeof(JGJData)) as JGJData;
             if(ud == null)
             {
-                ud = new JGJData();
-                rhobj.Attributes.UserData.Add(ud);
+                //ud = new JGJData();
+                //rhobj.Attributes.UserData.Add(ud);
                 rhobj.CommitChanges();
             }
             else

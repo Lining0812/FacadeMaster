@@ -3,70 +3,50 @@ using Rhino.DocObjects.Custom;
 using Rhino.FileIO;
 using Rhino.Geometry;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace FacadeMaster.RH.FM_UserData
 {
     [Guid("3B625D28-D988-4B0C-BE5B-6A416B4298E6")]
-    public class CustomUserData : UserData
+    public class HoleData : UserData
     {
         public string Test { get; set; } = "Test";
-        public int Count { get; set; }
+        public IEnumerable<Brep> Hole { get; set; } = null;
 
-        public CustomUserData()
-        {
-        }
-
-        public CustomUserData(string test,int count)
-        {
-            Test = test;
-            Count = count;
-        }
-
-        public override string Description => "CustomData";
+        public override string Description => "HoleData";
 
         public override string ToString()
         {
-            return string.Format("Test={0},Count={1}", Test, Count);
+            return string.Format("Test={0}", Test);
         }
 
-        public override bool ShouldWrite
-        {
-            get
-            {
-                if (Count == 0) return false;
-                return true;
-            }
-        }
+        public override bool ShouldWrite => true;
 
         protected override void OnDuplicate(UserData source)
         {
-            CustomUserData data = source as CustomUserData;
+            HoleData data = source as HoleData;
             if (data != null)
             {
                 Test = data.Test;
-                Count = data.Count;
             }
         }
 
         protected override void OnTransform(Transform transform)
         {
-            Test = transform.ToString();
-            Count++;
             base.OnTransform(transform);
         }
 
         protected override bool Write(BinaryArchiveWriter archive)
         {
-            archive.WriteString(Test);
-            archive.WriteInt(Count);
+            var dic = new ArchivableDictionary();
+            dic.Set("Hole", Hole);
+            archive.WriteDictionary(dic);
             return true;
         }
 
         protected override bool Read(BinaryArchiveReader archive)
         {
-            Test = archive.ReadString();
-            Count = archive.ReadInt();
             return true;
         }
     }

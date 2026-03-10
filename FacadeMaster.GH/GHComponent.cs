@@ -15,7 +15,7 @@ namespace FacadeMaster.GH
         public XXComponent()
           : base("GHComponent", "CP",
             "Create Project",
-            "FacadeMater", "Primitive")
+            "FacadeMaster", "Primitive")
         {
         }
         protected override System.Drawing.Bitmap Icon => null;
@@ -41,7 +41,11 @@ namespace FacadeMaster.GH
             if (!run) return;
             var projects = RhinoPlugin.Instance.GetService<IProjectService>().GetAllProjects();
 
-            DA.SetDataList(0, projects.Select(p => $"{p.Name} - {p.Num}"));
+            if(projects != null)
+            {
+                DA.SetDataList(0, projects.Select(p => $"{p.Name} - {p.Num}"));
+            }
+            this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, $"projects does not exites.");
         }
     }
 

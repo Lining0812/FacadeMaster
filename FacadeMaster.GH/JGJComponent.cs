@@ -11,7 +11,7 @@ namespace FacadeMaster.GH
         public JGJComponent()
             : base("JGJComponent", "JGJ",
             "JGJ Data",
-            "FacadeMater", "Primitive")
+            "FacadeMaster", "Primitive")
         {
         }
         public override Guid ComponentGuid => new Guid("E738B85C-B553-42B2-A8DE-958C15736BE6");

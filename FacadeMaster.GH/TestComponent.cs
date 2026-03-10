@@ -38,7 +38,7 @@ namespace FacadeMaster.GH
             if (!DA.GetData(0, ref brep)) return;
 
             var lin = brep.Faces.OrderByDescending(f => AreaMassProperties.Compute(f).Area).First();
-            if(lin.SetDomain(0, new Interval(0, 1)) && lin.SetDomain(1,new Interval(0,1)))
+            if (lin.SetDomain(0, new Interval(0, 1)) && lin.SetDomain(1, new Interval(0, 1)))
             {
                 lin.FrameAt(0.5, 0.5, out plane);
             }

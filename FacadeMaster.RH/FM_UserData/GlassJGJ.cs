@@ -10,10 +10,8 @@ namespace FacadeMaster.RH.FM_UserData
     /// <summary>
     /// 玻璃加工件 - 待完善
     /// </summary>
-    public class GlassJGJ : JGJData
+    public class GlassJGJ : JGJData<FM_Glass>
     {
-        public new FM_Glass Material { get; set; }
-
         public override string Description => "玻璃加工件";
     }
 }

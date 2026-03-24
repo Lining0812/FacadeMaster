@@ -8,15 +8,15 @@ using System.Runtime.InteropServices;
 namespace FacadeMaster.RH.FM_UserData
 {
     [Guid("AED87E30-EA39-48DA-9242-59886E3F2FDD")]
-    public abstract class JGJData : UserData
+    public abstract class JGJData<TMaterial> : UserData where TMaterial : FM_BaseMaterial
     {
         public string BH { get; set; }
         public string JGTH { get; set; }
-        public Plane BH_Plane { get; set; } = Plane.WorldXY;
-        public Plane CT_Plane { get; set; } = Plane.WorldXY;
-        public FM_BaseMaterial Material { get; set; }
+        public Plane BH_Plane { get; set; } = Plane.Unset;
+        public Plane CT_Plane { get; set; } = Plane.Unset;
+        public TMaterial Material { get; set; }
 
-        public override string Description => "JGJData";
+        public override string Description => "加工件";
 
         public override string ToString()
         {
@@ -25,8 +25,7 @@ namespace FacadeMaster.RH.FM_UserData
 
         protected override void OnDuplicate(UserData source)
         {
-            JGJData data = source as JGJData;
-            if (data != null)
+            if (source is JGJData<TMaterial> data)
             {
                 BH = data.BH;
                 JGTH = data.JGTH;
@@ -39,7 +38,6 @@ namespace FacadeMaster.RH.FM_UserData
 
         protected override void OnTransform(Transform transform)
         {
-            // 平面跟随操作变换
             Plane bhPlane = BH_Plane;
             Plane ctPlane = CT_Plane;
             if (bhPlane.Transform(transform) && ctPlane.Transform(transform))

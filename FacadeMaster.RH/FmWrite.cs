@@ -1,3 +1,4 @@
+using FacadeMaster.Core.Models.Material;
 using FacadeMaster.RH.FM_UserData;
 using Rhino;
 using Rhino.Commands;
@@ -24,7 +25,7 @@ namespace FacadeMaster.RH
             var rhobj = objref.Object();
             if (rhobj == null) return Result.Failure;
 
-            var ud = rhobj.Attributes.UserData.Find(typeof(JGJData)) as JGJData;
+            var ud = rhobj.Attributes.UserData.Find(typeof(JGJData<FM_BaseMaterial>)) as JGJData<FM_BaseMaterial>;
             if(ud == null)
             {
                 //ud = new JGJData();

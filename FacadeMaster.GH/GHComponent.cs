@@ -1,7 +1,6 @@
 using FacadeMaster.Core.DTOs;
 using FacadeMaster.Core.Repos;
 using FacadeMaster.Core.Services;
-using FacadeMaster.RH;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Attributes;
 using System;
@@ -39,13 +38,13 @@ namespace FacadeMaster.GH
             if (!DA.GetData(0, ref run)) return;
 
             if (!run) return;
-            var projects = RhinoPlugin.Instance.GetService<IProjectService>().GetAllProjects();
+            //var projects = RhinoPlugin.Instance.GetService<IProjectService>().GetAllProjects();
 
-            if(projects != null)
-            {
-                DA.SetDataList(0, projects.Select(p => $"{p.Name} - {p.Num}"));
-            }
-            this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, $"projects does not exites.");
+            //if(projects != null)
+            //{
+            //    DA.SetDataList(0, projects.Select(p => $"{p.Name} - {p.Num}"));
+            //}
+            //this.AddRuntimeMessage(GH_RuntimeMessageLevel.Warning, $"projects does not exites.");
         }
     }
 

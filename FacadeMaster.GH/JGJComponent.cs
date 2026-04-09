@@ -1,5 +1,4 @@
-﻿using FacadeMaster.RH.FM_UserData;
-using Grasshopper.Kernel;
+﻿using Grasshopper.Kernel;
 using Grasshopper.Kernel.Types;
 using Rhino;
 using System;
@@ -35,9 +34,9 @@ namespace FacadeMaster.GH
             var rhobj = RhinoDoc.ActiveDoc.Objects.Find(brep.ReferenceID);
             if (rhobj != null)
             {
-                var data = rhobj.Attributes.UserData.Find(typeof(JGJData)) as JGJData;
-                DA.SetData(0, data.BH_Plane);
-                DA.SetData(1, data.CT_Plane);
+                //var data = rhobj.Attributes.UserData.Find(typeof(JGJData)) as JGJData;
+                //DA.SetData(0, data.BH_Plane);
+                //DA.SetData(1, data.CT_Plane);
             }
         }
     }

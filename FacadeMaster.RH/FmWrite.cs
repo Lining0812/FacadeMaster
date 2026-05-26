@@ -3,6 +3,7 @@ using FacadeMaster.RH.FM_UserData;
 using Rhino;
 using Rhino.Commands;
 using Rhino.DocObjects;
+using Rhino.Geometry;
 using Rhino.Input;
 
 namespace FacadeMaster.RH
@@ -25,16 +26,22 @@ namespace FacadeMaster.RH
             var rhobj = objref.Object();
             if (rhobj == null) return Result.Failure;
 
-            var ud = rhobj.Attributes.UserData.Find(typeof(JGJData<FM_BaseMaterial>)) as JGJData<FM_BaseMaterial>;
+            var ud = rhobj.Attributes.UserData.Find(typeof(JGJData)) as JGJData;
             if(ud == null)
             {
-                //ud = new JGJData();
-                //rhobj.Attributes.UserData.Add(ud);
+                ud = new JGJData()
+                {
+                    BH = "Test_BH",
+                    JGTH = "Test_JGTH",
+                    BH_Plane = Plane.WorldXY,
+                    CT_Plane = Plane.WorldXY,
+                };
+                rhobj.Attributes.UserData.Add(ud);
                 rhobj.CommitChanges();
             }
             else
             {
-                RhinoApp.WriteLine("{0} = {1}", ud.Description, ud);
+                RhinoApp.WriteLine("编号：{0}, 加工图号：{1}", ud.BH, ud.JGTH);
             }
             return Result.Success;
         }

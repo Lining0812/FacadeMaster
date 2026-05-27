@@ -1,5 +1,3 @@
-using FacadeMaster.Core.Enums;
-using FacadeMaster.Core.Models.Material;
 using Rhino;
 using Rhino.Collections;
 using Rhino.DocObjects.Custom;
@@ -12,15 +10,25 @@ namespace FacadeMaster.RH.FM_UserData
     /// <summary>
     /// 加工件基类
     /// </summary>
-    /// <typeparam name="TMaterial"></typeparam>
     [Guid("AED87E30-EA39-48DA-9242-59886E3F2FDD")]
     public class JGJData : UserData
-    {        public string BH { get; set; }
+    {        
+        public string BH { get; set; }
         public string JGTH { get; set; }
         public Plane BH_Plane { get; set; } = Plane.Unset;
         public Plane CT_Plane { get; set; } = Plane.Unset;
+        public bool IsValid
+        {
+            get
+            {
+                return string.IsNullOrEmpty(BH) || string.IsNullOrEmpty(JGTH)
+                    || BH_Plane.IsValid || CT_Plane.IsValid;
+            }
+        }
 
         public override string Description => "FM加工件属性";
+
+        public override bool ShouldWrite => true;
 
         public override string ToString()
         {
@@ -52,10 +60,9 @@ namespace FacadeMaster.RH.FM_UserData
             RhinoApp.WriteLine("用户数据已变换，编号平面={0},出图平面={1}", BH_Plane, CT_Plane);
         }
 
-        public override bool ShouldWrite => true;
-
         protected override bool Read(BinaryArchiveReader archive)
         {
+            bool rc = false;
             var dic = archive.ReadDictionary();
 
             if (!dic.ContainsKey("编号") || !dic.ContainsKey("加工图号") 
@@ -67,11 +74,13 @@ namespace FacadeMaster.RH.FM_UserData
             BH_Plane = dic.GetPlane("编号平面");
             CT_Plane = dic.GetPlane("出图平面");
 
-            return true;
+            rc = archive.ReadErrorOccured;
+            return rc;
         }
 
         protected override bool Write(BinaryArchiveWriter archive)
         {
+            bool rc = false;
             var dic = new ArchivableDictionary();
 
             if(!dic.Set("编号", BH) || !dic.Set("加工图号", JGTH)
@@ -79,7 +88,8 @@ namespace FacadeMaster.RH.FM_UserData
                 ) return false;
 
             archive.WriteDictionary(dic);
-            return true;
+            rc = archive.WriteErrorOccured;
+            return rc;
         }
     }
 }

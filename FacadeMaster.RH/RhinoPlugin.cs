@@ -43,6 +43,7 @@ namespace FacadeMaster.RH
             string iconPath = Path.Combine(pluginDir, "EmbeddedResources", "plugin-utility.ico");
             Icon icon = new Icon(iconPath);
             Panels.RegisterPanel(this, typeof(FM_Panel), "FacadeMaster面板", icon);
+            Panels.RegisterPanel(this,typeof(Test_Panel), "测试面板", icon);
 
             return base.OnLoad(ref errorMessage);
         }

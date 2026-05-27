@@ -4,7 +4,6 @@ using FacadeMaster.RH.FM_UserData;
 using Rhino;
 using Rhino.DocObjects;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 
@@ -42,12 +41,6 @@ namespace FacadeMaster.RH.FM_Panels
             RhinoDoc.DeselectAllObjects += onDeselectAllObjects;
         }
 
-        private void onDeselectAllObjects(object sender, RhinoDeselectAllObjectsEventArgs e)
-        {
-            RhinoApp.WriteLine("All对象已取消选择，刷新面板内容");
-            _gridview.DataStore = null;
-        }
-
         private void OnSelectionChanged(object sender, RhinoObjectSelectionEventArgs e)
         {
             UpdatePanelContent(e.Document);
@@ -56,6 +49,12 @@ namespace FacadeMaster.RH.FM_Panels
         private void OnDeselectObjects(object sender, RhinoObjectSelectionEventArgs e)
         {
             RhinoApp.WriteLine("对象已取消选择，刷新面板内容");
+            _gridview.DataStore = null;
+        }
+
+        private void onDeselectAllObjects(object sender, RhinoDeselectAllObjectsEventArgs e)
+        {
+            RhinoApp.WriteLine("All对象已取消选择，刷新面板内容");
             _gridview.DataStore = null;
         }
 

@@ -1,4 +1,3 @@
-using FacadeMaster.Core.Models.Material;
 using FacadeMaster.RH.FM_UserData;
 using Rhino;
 using Rhino.Commands;
@@ -6,21 +5,21 @@ using Rhino.DocObjects;
 using Rhino.Geometry;
 using Rhino.Input;
 
-namespace FacadeMaster.RH
+namespace FacadeMaster.RH.FM_Command
 {
-    public class FmWrite : Command
+    public class FmWriteCommand : Command
     {
-        public FmWrite()
+        public FmWriteCommand()
         {
             Instance = this;
         }
-        public static FmWrite Instance { get; private set; }
+        public static FmWriteCommand Instance { get; private set; }
         public override string EnglishName => "FM_Write";
 
         protected override Result RunCommand(RhinoDoc doc, RunMode mode)
         {
             ObjRef objref;
-            var rc = RhinoGet.GetOneObject("select one", false, ObjectType.AnyObject, out objref);
+            var rc = RhinoGet.GetOneObject("select one object", false, ObjectType.AnyObject, out objref);
             if (rc != Result.Success) return rc;
 
             var rhobj = objref.Object();

@@ -4,7 +4,7 @@ using Rhino.Geometry;
 using Rhino.Input;
 using Rhino.Input.Custom;
 
-namespace FacadeMaster.RH
+namespace FacadeMaster.RH.FM_Command
 {
     public class RhinoCommand : Command
     {

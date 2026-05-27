@@ -1,48 +1,51 @@
 using Eto.Drawing;
 using Eto.Forms;
-using FacadeMaster.Core.Models;
-using FacadeMaster.Core.Services;
+using FacadeMaster.RH.FM_UserData;
 using Rhino;
 using Rhino.DocObjects;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace FacadeMaster.RH.FM_Panels
 {
     [Guid("D71F0AF8-8106-46EF-A880-3F00F0A0ABB1")]
     public class FM_Panel : Panel
     {
-        private Label _label;
+        private readonly GridView _gridview;
+
         public FM_Panel()
         {
-            var button = new Button { Text = "点击我" };
-
-            var gridview = new GridView();
-            gridview.Columns.Add(new GridColumn
+            _gridview = new GridView();
+            _gridview.Columns.Add(new GridColumn
             {
-                HeaderText = "工程名称",
-                DataCell = new TextBoxCell(nameof(EngProject.Name)),
+                HeaderText = "编号",
+                DataCell = new TextBoxCell(nameof(JGJRow.BH)),
                 HeaderTextAlignment = TextAlignment.Center,
             });
-            gridview.Columns.Add(new GridColumn
+            _gridview.Columns.Add(new GridColumn
             {
-                HeaderText = "工程编号",
-                DataCell = new TextBoxCell(nameof(EngProject.Num)),
+                HeaderText = "加工图号",
+                DataCell = new TextBoxCell(nameof(JGJRow.JGTH)),
                 HeaderTextAlignment = TextAlignment.Center,
             });
-            gridview.DataStore = RhinoPlugin.Instance.GetService<IProjectService>().GetAllProjects();
 
             var layout = new DynamicLayout();
             layout.Spacing = new Size(5, 5);
-            layout.AddRow(button);
-            layout.AddRow(gridview);
+            layout.AddRow(_gridview);
 
             Content = layout;
 
             RhinoDoc.SelectObjects += OnSelectionChanged;
             RhinoDoc.DeselectObjects += OnDeselectObjects;
+            RhinoDoc.DeselectAllObjects += onDeselectAllObjects;
+        }
+
+        private void onDeselectAllObjects(object sender, RhinoDeselectAllObjectsEventArgs e)
+        {
+            RhinoApp.WriteLine("All对象已取消选择，刷新面板内容");
+            _gridview.DataStore = null;
         }
 
         private void OnSelectionChanged(object sender, RhinoObjectSelectionEventArgs e)
@@ -50,35 +53,29 @@ namespace FacadeMaster.RH.FM_Panels
             UpdatePanelContent(e.Document);
         }
 
-        private void OnDeselectObjects(object sender,RhinoObjectSelectionEventArgs e)
+        private void OnDeselectObjects(object sender, RhinoObjectSelectionEventArgs e)
         {
-            _label.Text = "This is a test panel.";
-            RhinoApp.WriteLine("取消选择");
+            RhinoApp.WriteLine("对象已取消选择，刷新面板内容");
+            _gridview.DataStore = null;
         }
 
         private void UpdatePanelContent(RhinoDoc doc)
         {
             if (doc == null) return;
 
-            var _select = doc.Objects.GetSelectedObjects(false,false).ToArray();
+            var rows = doc.Objects.GetSelectedObjects(false, false)
+                .Select(rhObj => rhObj.Attributes.UserData.Find(typeof(JGJData)) as JGJData)
+                .Where(ud => ud != null)
+                .Select(ud => new JGJRow { BH = ud.BH, JGTH = ud.JGTH })
+                .ToList<object>();
 
-            if (_select.Length == 1)
-            {
-                DisplaySingleObjectProperties(_select[0]);
-            }
-            else
-            {
-                return;
-            }
+            _gridview.DataStore = rows.Count > 0 ? rows : null;
         }
+    }
 
-        private void DisplaySingleObjectProperties(RhinoObject rhObj)
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine($"属性：{rhObj.ObjectType}");
-            sb.AppendLine($"aaa:{rhObj.Attributes.LayerIndex}");
-
-            _label.Text = sb.ToString();
-        }
+    public class JGJRow
+    {
+        public string BH { get; set; }
+        public string JGTH { get; set; }
     }
 }

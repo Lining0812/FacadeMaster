@@ -23,7 +23,16 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <None Remove="Resources\Test.png" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Test.png" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <PackageReference Include="Grasshopper" Version="8.0.23304.9001" ExcludeAssets="runtime" />
+    <PackageReference Include="System.Resources.Extensions" Version="10.0.10" />
   </ItemGroup>
   
   <!-- For Windows only builds -->
@@ -43,6 +52,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FacadeMaster.Core\FacadeMaster.Core.csproj" />
+    <ProjectReference Include="..\FacadeMaster.RH\FacadeMaster.RH.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Attributes\" />
   </ItemGroup>
 
 </Project>

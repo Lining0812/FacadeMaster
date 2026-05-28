@@ -28,13 +28,7 @@ namespace FacadeMaster.RH.FM_Command
             var ud = rhobj.Attributes.UserData.Find(typeof(JGJData)) as JGJData;
             if(ud == null)
             {
-                ud = new JGJData()
-                {
-                    BH = "Test_BH",
-                    JGTH = "Test_JGTH",
-                    BH_Plane = Plane.WorldXY,
-                    CT_Plane = Plane.WorldXY,
-                };
+                ud = new JGJData("Test_BH", "Test_JGTH", Plane.WorldXY, Plane.WorldXY);
                 rhobj.Attributes.UserData.Add(ud);
                 rhobj.CommitChanges();
             }

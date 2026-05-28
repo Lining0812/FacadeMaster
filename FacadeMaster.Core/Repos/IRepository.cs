@@ -46,7 +46,7 @@ namespace FacadeMaster.Core.Repos
         /// 获取所有实体
         /// </summary>
         /// <returns></returns>
-        ICollection <T> GetAll();
+        ICollection<T> GetAll();
 
         /// <summary>
         /// 从文件读取数据

@@ -1,6 +1,4 @@
-﻿using FacadeMaster.Core.DTOs;
-using FacadeMaster.Core.Models;
-using System;
+﻿using FacadeMaster.Core.Models;
 
 namespace FacadeMaster.Core.Repos
 {
@@ -9,6 +7,5 @@ namespace FacadeMaster.Core.Repos
     /// </summary>
     public interface IProjectRepo : IRepository<EngProject>
     {
-
     }
 }

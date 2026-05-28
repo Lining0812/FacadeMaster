@@ -20,7 +20,7 @@ namespace FacadeMaster.Core.Models
         /// <summary>
         /// 图框大小
         /// </summary>
-        public PaperSize Size { get; set; }
+        public SheetSize Size { get; set; }
 
         /// <summary>
         /// 比例

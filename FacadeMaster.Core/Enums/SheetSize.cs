@@ -1,6 +1,6 @@
 ﻿namespace FacadeMaster.Core.Enums
 {
-    public enum PaperSize
+    public enum SheetSize
     {
         A0, // 841×1189
         A1, // 594×841

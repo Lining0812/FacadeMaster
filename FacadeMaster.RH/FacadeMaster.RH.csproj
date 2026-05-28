@@ -24,10 +24,14 @@
   
   <ItemGroup>
     <None Remove="EmbeddedResources\plugin-utility.ico" />
+    <None Remove="EmbeddedResources\cloud.ico" />
   </ItemGroup>
   
   <ItemGroup>
     <EmbeddedResource Include="EmbeddedResources\plugin-utility.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmbeddedResources\cloud.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -39,6 +43,10 @@
   
   <ItemGroup>
     <ProjectReference Include="..\FacadeMaster.Core\FacadeMaster.Core.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   
   <!-- For Windows only builds -->

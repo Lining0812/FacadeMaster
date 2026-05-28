@@ -1,14 +1,16 @@
-using FacadeMaster.Core.DTOs;
 using FacadeMaster.Core.Models;
-using System;
+using FacadeMaster.Core.Utilities;
 
 namespace FacadeMaster.Core.Repos
 {
+    /// <summary>
+    /// 工程项目仓储
+    /// </summary>
     public class ProjectRepository : BaseRepo<EngProject>, IProjectRepo
     {
-
-        protected override string FilePath => "C:\\Users\\Administrator\\Desktop\\Projects.Json";
-
-        //protected override string FilePath => "C:\\Users\\Em0o0\\OneDrive\\Desktop\\Projects.Json";
+        public ProjectRepository(string filePath)
+            : base(filePath)
+        {
+        }
     }
 }

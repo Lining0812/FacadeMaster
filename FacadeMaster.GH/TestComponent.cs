@@ -1,22 +1,19 @@
 ﻿using Grasshopper.Kernel;
 using Rhino.Geometry;
-using Rhino.Render;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FacadeMaster.GH
 {
     public class TestComponent : GH_Component
-
     {
+        
         public TestComponent()
             : base("TestComponent", "Test",
                   "A test component for FacadeMaster",
                   "FacadeMaster", "Test")
         {
+            this.Message = "曲面平面";
         }
         public override Guid ComponentGuid => new Guid("F81E8A2F-35D9-4C1C-80E6-00C97054B652");
 

@@ -1,14 +1,17 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 
 namespace FacadeMaster.Core.Models
 {
-    public class BaseEntity
+    public abstract class BaseEntity
     {
-        public Guid Id { get; set; }
+        [JsonProperty]
+        public Guid Id { get; protected set; }
         public DateTime CreateAt { get; set; }
         public DateTime DeleteAt { get; set; }
-        public DateTime UpdateAt { get; set; }
-        public bool IsDelete { get; set; }
+        public DateTime UpdateAt { get; private set; }
+        public bool IsDelete { get; private set; }
+        public virtual bool IsValid => !IsDelete && Id != Guid.Empty;
 
         protected BaseEntity()
         {
@@ -18,6 +21,17 @@ namespace FacadeMaster.Core.Models
             DeleteAt = DateTime.MinValue;
             UpdateAt = now;
             IsDelete = false;
+        }
+
+        /// <summary>
+        /// 触发更新时间
+        /// </summary>
+        protected void Touch() => UpdateAt = DateTime.UtcNow;
+
+        public virtual void SoftDelete()
+        {
+            IsDelete = true;
+            DeleteAt = DateTime.UtcNow;
         }
     }
 }

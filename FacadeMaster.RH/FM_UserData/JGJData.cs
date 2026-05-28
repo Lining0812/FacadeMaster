@@ -1,4 +1,3 @@
-using Rhino;
 using Rhino.Collections;
 using Rhino.DocObjects.Custom;
 using Rhino.FileIO;
@@ -21,9 +20,26 @@ namespace FacadeMaster.RH.FM_UserData
         {
             get
             {
-                return string.IsNullOrEmpty(BH) || string.IsNullOrEmpty(JGTH)
-                    || BH_Plane.IsValid || CT_Plane.IsValid;
+                return !string.IsNullOrWhiteSpace(BH)
+                    && !string.IsNullOrWhiteSpace(JGTH)
+                    && BH_Plane.IsValid 
+                    && CT_Plane.IsValid;
             }
+        }
+
+        /// <summary>
+        /// 必须有Public的无参构造
+        /// </summary>
+        public JGJData()
+        { 
+        }
+
+        public JGJData(string bh,string jgth,Plane bh_plane, Plane ct_plane)
+        {
+            BH = bh;
+            JGTH = jgth;
+            BH_Plane = bh_plane;
+            CT_Plane = ct_plane;
         }
 
         public override string Description => "FM加工件属性";
@@ -44,8 +60,6 @@ namespace FacadeMaster.RH.FM_UserData
                 BH_Plane = data.BH_Plane;
                 CT_Plane = data.CT_Plane;
             }
-            //base.OnDuplicate(source);
-            RhinoApp.WriteLine("已复制，编号平面={0},出图平面={1}", BH_Plane, CT_Plane);
         }
 
         protected override void OnTransform(Transform transform)
@@ -57,7 +71,7 @@ namespace FacadeMaster.RH.FM_UserData
             BH_Plane = bhPlane;
             CT_Plane = ctPlane;
             base.OnTransform(transform);
-            RhinoApp.WriteLine("用户数据已变换，编号平面={0},出图平面={1}", BH_Plane, CT_Plane);
+            //RhinoApp.WriteLine("用户数据已变换，编号平面={0},出图平面={1}", BH_Plane, CT_Plane);
         }
 
         protected override bool Read(BinaryArchiveReader archive)
@@ -74,8 +88,7 @@ namespace FacadeMaster.RH.FM_UserData
             BH_Plane = dic.GetPlane("编号平面");
             CT_Plane = dic.GetPlane("出图平面");
 
-            rc = archive.ReadErrorOccured;
-            return rc;
+            return !archive.ReadErrorOccured;
         }
 
         protected override bool Write(BinaryArchiveWriter archive)
@@ -88,8 +101,7 @@ namespace FacadeMaster.RH.FM_UserData
                 ) return false;
 
             archive.WriteDictionary(dic);
-            rc = archive.WriteErrorOccured;
-            return rc;
+            return !archive.WriteErrorOccured;
         }
     }
 }

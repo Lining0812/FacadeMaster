@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.IO;
-using Newtonsoft.Json;
 
 namespace FacadeMaster.Core.Utilities
 {
@@ -14,6 +13,9 @@ namespace FacadeMaster.Core.Utilities
             Formatting = Formatting.Indented,
             NullValueHandling = NullValueHandling.Ignore
         };
+
+        private static readonly JsonSerializerSettings PolymorphicSettings = MaterialJson.Settings;
+
 
         /// <summary>
         /// 序列化Json
